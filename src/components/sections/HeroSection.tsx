@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
-import { ArrowRight, Play, ChevronDown } from "lucide-react";
+import { ArrowRight, Play, ChevronDown, Sparkles, Zap, Target, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLenisContext } from "@/contexts/LenisContext";
 
@@ -88,7 +88,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden gradient-hero">
+    <section className="relative pt-20 pb-0 overflow-hidden gradient-hero">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-20 left-20 w-32 h-32 bg-brand-sky/20 rounded-full blur-xl animate-float"></div>
@@ -143,8 +143,8 @@ const HeroSection = () => {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 text-center relative z-10">
-        <div className="max-w-5xl mx-auto">
+      <div className="container mx-auto px-0 text-center relative z-10">
+        <div className="max-w-6xl mx-auto">
           {/* Country Highlight Badge */}
           <div className="inline-flex items-center px-6 py-3 rounded-full glass border border-brand-sky/30 mb-8 animate-fade-in">
             <span className="w-3 h-3 bg-brand-sky rounded-full mr-3 animate-pulse"></span>
@@ -162,13 +162,40 @@ const HeroSection = () => {
           </div>
 
           {/* Subheadline */}
-          <p className="text-xl md:text-2xl text-muted-foreground mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in-delayed">
+          <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-3xl mx-auto leading-relaxed animate-fade-in-delayed">
             Transform your business with cutting-edge AI solutions, holographic interfaces, 
             and next-generation technology that drives exponential growth.
           </p>
 
+          {/* Feature Highlights */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto animate-fade-in-delayed-2">
+            <div className="flex flex-col items-center p-6 rounded-xl glass border border-brand-sky/20 hover:border-brand-sky/40 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-full bg-brand-sky/10 flex items-center justify-center mb-4 group-hover:bg-brand-sky/20 transition-colors">
+                <Sparkles className="h-6 w-6 text-brand-sky" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">AI-Powered</h3>
+              <p className="text-sm text-muted-foreground text-center">Cutting-edge artificial intelligence solutions</p>
+            </div>
+            
+            <div className="flex flex-col items-center p-6 rounded-xl glass border border-brand-violet/20 hover:border-brand-violet/40 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-full bg-brand-violet/10 flex items-center justify-center mb-4 group-hover:bg-brand-violet/20 transition-colors">
+                <Zap className="h-6 w-6 text-brand-violet" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Lightning Fast</h3>
+              <p className="text-sm text-muted-foreground text-center">3x faster than industry average</p>
+            </div>
+            
+            <div className="flex flex-col items-center p-6 rounded-xl glass border border-brand-pink/20 hover:border-brand-pink/40 transition-all duration-300 group">
+              <div className="w-12 h-12 rounded-full bg-brand-pink/10 flex items-center justify-center mb-4 group-hover:bg-brand-pink/20 transition-colors">
+                <Target className="h-6 w-6 text-brand-violet" />
+              </div>
+              <h3 className="text-lg font-semibold text-foreground mb-2">Results-Driven</h3>
+              <p className="text-sm text-muted-foreground text-center">Proven track record of success</p>
+            </div>
+          </div>
+
           {/* Glowing CTA Buttons */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-16 animate-fade-in-delayed-2">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-8 animate-fade-in-delayed-2">
             <Button 
               variant="hero" 
               size="lg" 
@@ -189,7 +216,7 @@ const HeroSection = () => {
           </div>
 
           {/* Stats with Neon Glow */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-3xl mx-auto animate-fade-in-delayed-3">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto animate-fade-in-delayed-3">
             <div className="text-center group">
               <div className="text-4xl font-bold text-brand-sky mb-2 group-hover:text-brand-sky/80 transition-colors">500+</div>
               <div className="text-sm text-muted-foreground">Projects Completed</div>
@@ -211,10 +238,10 @@ const HeroSection = () => {
       </div>
 
       {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+      <div className="text-center mt-0 animate-bounce">
         <button 
           onClick={handleScroll}
-          className="w-12 h-12 border-2 border-brand-sky rounded-full flex items-center justify-center text-brand-sky hover:bg-brand-sky hover:text-white transition-all duration-300 backdrop-blur-sm"
+          className="w-12 h-12 border-2 border-brand-sky rounded-full flex items-center justify-center text-brand-sky hover:bg-brand-sky hover:text-white transition-all duration-300 backdrop-blur-sm mx-auto"
         >
           <ChevronDown className="h-6 w-6" />
         </button>

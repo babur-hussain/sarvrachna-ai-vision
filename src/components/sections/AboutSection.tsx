@@ -29,7 +29,7 @@ const AboutSection = () => {
   });
 
   return (
-    <section id="about-section" className="py-24 bg-background relative overflow-hidden">
+    <section id="about-section" className="pt-0 pb-24 bg-background relative overflow-hidden">
       {/* Background Elements with Parallax */}
       <div ref={backgroundRef} className="absolute inset-0 opacity-5 transition-transform duration-1000">
         <div className="absolute top-20 right-20 w-64 h-64 bg-brand-sky rounded-full blur-3xl"></div>

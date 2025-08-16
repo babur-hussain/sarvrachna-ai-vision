@@ -17,7 +17,7 @@ const Index = () => {
     <div className="min-h-screen">
       <Navigation />
       <HeroSection />
-      <AboutSection />
+      {/* <AboutSection /> */}
       <ServicesSection />
       <AISolutionsSection />
       <WhyChooseUsSection />
