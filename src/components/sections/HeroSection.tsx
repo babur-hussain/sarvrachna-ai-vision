@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { ArrowRight, Play, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLenisContext } from "@/contexts/LenisContext";
 import * as THREE from "three";
 
 const HeroSection = () => {
+  const { lenis } = useLenisContext();
   const [currentText, setCurrentText] = useState(0);
   const [isTyping, setIsTyping] = useState(true);
   const [displayText, setDisplayText] = useState("");
@@ -255,26 +257,33 @@ const HeroSection = () => {
     };
   }, [initGlobe]);
 
-  // Auto-scroll functionality
+  // Auto-scroll functionality using Lenis
   const handleScroll = useCallback(() => {
+    if (!lenis) return;
+    
     const nextSection = document.querySelector('#about-section');
     if (nextSection) {
-      nextSection.scrollIntoView({ 
-        behavior: 'smooth',
-        block: 'start'
+      const targetPosition = nextSection.offsetTop;
+      lenis.scrollTo(targetPosition, {
+        duration: 2.0, // Slightly longer duration for luxury feel
+        easing: (t: number) => 1 - Math.pow(2, -10 * t), // Same exponential easing
       });
     }
-  }, []);
+  }, [lenis]);
 
   useEffect(() => {
+    if (!lenis) return;
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'ArrowDown') {
+        event.preventDefault();
         handleScroll();
       }
     };
 
     const handleWheel = (event: WheelEvent) => {
       if (event.deltaY > 0) {
+        event.preventDefault();
         handleScroll();
       }
     };
@@ -286,7 +295,7 @@ const HeroSection = () => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('wheel', handleWheel);
     };
-  }, [handleScroll]);
+  }, [handleScroll, lenis]);
 
   // Get user's country (simplified)
   useEffect(() => {

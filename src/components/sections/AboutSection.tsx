@@ -1,17 +1,43 @@
 import { Play, Target, Lightbulb, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLenisScroll } from "@/hooks/use-lenis-scroll";
+import { useEffect, useRef } from "react";
+import { LenisScrollEvent } from "@/types/lenis";
 
 const AboutSection = () => {
+  const backgroundRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Lenis scroll integration for parallax effects
+  useLenisScroll((e: LenisScrollEvent) => {
+    if (!backgroundRef.current || !contentRef.current) return;
+    
+    const progress = e.progress;
+    const scrollY = e.scroll;
+    
+    // Subtle parallax effect on background elements
+    if (backgroundRef.current) {
+      const translateY = scrollY * 0.1;
+      backgroundRef.current.style.transform = `translateY(${translateY}px)`;
+    }
+    
+    // Content fade-in effect based on scroll progress
+    if (contentRef.current) {
+      const opacity = Math.min(1, Math.max(0, (scrollY - 100) / 200));
+      contentRef.current.style.opacity = opacity.toString();
+    }
+  });
+
   return (
     <section id="about-section" className="py-24 bg-background relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 opacity-5">
+      {/* Background Elements with Parallax */}
+      <div ref={backgroundRef} className="absolute inset-0 opacity-5 transition-transform duration-1000">
         <div className="absolute top-20 right-20 w-64 h-64 bg-brand-sky rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 left-20 w-48 h-48 bg-brand-violet rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div ref={contentRef} className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center opacity-0 transition-opacity duration-1000">
           {/* Content */}
           <div>
             <div className="inline-flex items-center px-4 py-2 rounded-full glass border mb-6">
