@@ -22,6 +22,21 @@ import {
 import { Button } from "@/components/ui/button";
 
 const Services = () => {
+  // Function to generate correct URLs for each service
+  const getServiceUrl = (title: string) => {
+    const urlMap: { [key: string]: string } = {
+      "App Development": "/app-development",
+      "Website Development": "/website-development",
+      "E-commerce Stores": "/e-commerce-stores",
+      "QR Menus & POS": "/qr-menus-and-pos",
+      "AI Integrations": "/ai-integrations",
+      "Google Reviews Boost": "/google-reviews-boost",
+      "360° Google Maps": "/google-maps-360",
+      "SEO & Ranking": "/seo-and-ranking"
+    };
+    return urlMap[title] || "/";
+  };
+
   const services = [
     {
       icon: Smartphone,
@@ -222,9 +237,11 @@ const Services = () => {
                   
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-brand-sky">{service.price}</span>
-                    <Button variant="outline" size="sm" className="group">
-                      Learn More
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    <Button variant="outline" size="sm" className="group" asChild>
+                      <a href={getServiceUrl(service.title)}>
+                        Learn More
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                      </a>
                     </Button>
                   </div>
                 </div>

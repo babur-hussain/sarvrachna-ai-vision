@@ -6,7 +6,8 @@ import {
   Brain, 
   Star, 
   Camera, 
-  TrendingUp 
+  TrendingUp,
+  ArrowRight
 } from "lucide-react";
 
 const ServicesSection = () => {
@@ -96,8 +97,34 @@ const ServicesSection = () => {
                   {service.description}
                 </p>
 
-                <div className="mt-4 text-sm font-medium text-accent group-hover:text-brand-sky transition-colors">
-                  Learn More →
+                <div className="mt-4">
+                  <a 
+                    href={(() => {
+                      let href;
+                      if (service.title === "360° Google Maps") {
+                        href = "/google-maps-360";
+                      } else {
+                        href = `/${service.title.toLowerCase()
+                          .replace(/[°]/g, '') // Remove degree symbol first
+                          .replace(/[&]/g, 'and') // Replace & with 'and' before removing special chars
+                          .replace(/[^\w\s-]/g, '') // Remove remaining special characters except letters, numbers, spaces, and hyphens
+                          .replace(/\s+/g, '-') // Replace spaces with hyphens
+                          .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+                          .replace(/^-|-$/g, '') // Remove leading/trailing hyphens
+                        }`;
+                      }
+                      console.log(`Generated href for "${service.title}": ${href}`);
+                      return href;
+                    })()}
+                    onClick={(e) => {
+                      console.log(`Clicked on: ${service.title}`);
+                      console.log(`Navigating to: ${e.currentTarget.href}`);
+                    }}
+                    className="inline-flex items-center px-4 py-2 text-sm font-medium text-foreground bg-transparent border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-colors group cursor-pointer"
+                  >
+                    Learn More
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                  </a>
                 </div>
               </div>
             );
