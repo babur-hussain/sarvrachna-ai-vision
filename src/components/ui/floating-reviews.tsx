@@ -132,11 +132,11 @@ const FloatingReviews: React.FC = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-      {/* Balloon 1 - Far Left Side (Safe Blank Space) */}
+      {/* Balloon 1 - Far Left Edge (Completely Safe) */}
       {currentReviews.includes(0) && (
-        <div className="absolute top-1/4 left-2 animate-float">
+        <div className="absolute top-1/4 -left-1 animate-float">
           <div className="relative">
-            <div className="w-60 h-28 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1.5">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[0].rating)].map((_, i) => (
@@ -167,11 +167,11 @@ const FloatingReviews: React.FC = () => {
         </div>
       )}
 
-      {/* Balloon 2 - Far Right Side (Safe Blank Space) */}
+      {/* Balloon 2 - Far Right Edge (Completely Safe) */}
       {currentReviews.includes(1) && (
-        <div className="absolute top-1/4 right-2 animate-float" style={{ animationDelay: '1s' }}>
+        <div className="absolute top-1/4 -right-1 animate-float" style={{ animationDelay: '1s' }}>
           <div className="relative">
-            <div className="w-60 h-28 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1.5">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[1].rating)].map((_, i) => (
@@ -202,11 +202,11 @@ const FloatingReviews: React.FC = () => {
         </div>
       )}
 
-      {/* Balloon 3 - Left Side Lower (Safe Blank Space) */}
+      {/* Balloon 3 - Left Edge Lower (Completely Safe) */}
       {currentReviews.includes(2) && (
-        <div className="absolute bottom-1/4 left-2 animate-float" style={{ animationDelay: '2s' }}>
+        <div className="absolute bottom-1/4 -left-1 animate-float" style={{ animationDelay: '2s' }}>
           <div className="relative">
-            <div className="w-60 h-28 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1.5">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[2].rating)].map((_, i) => (
@@ -237,11 +237,11 @@ const FloatingReviews: React.FC = () => {
         </div>
       )}
 
-      {/* Balloon 4 - Right Side Lower (Safe Blank Space) */}
+      {/* Balloon 4 - Right Edge Lower (Completely Safe) */}
       {currentReviews.includes(3) && (
-        <div className="absolute bottom-1/4 right-2 animate-float" style={{ animationDelay: '0.5s' }}>
+        <div className="absolute bottom-1/4 -right-1 animate-float" style={{ animationDelay: '0.5s' }}>
           <div className="relative">
-            <div className="w-60 h-28 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1.5">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[3].rating)].map((_, i) => (
@@ -272,11 +272,11 @@ const FloatingReviews: React.FC = () => {
         </div>
       )}
 
-      {/* Balloon 5 - Left Side Middle (Safe Blank Space) */}
+      {/* Balloon 5 - Left Edge Center (Completely Safe) */}
       {currentReviews.includes(4) && (
-        <div className="absolute top-1/2 left-2 transform -translate-y-1/2 animate-float" style={{ animationDelay: '1.5s' }}>
+        <div className="absolute top-1/2 -left-1 transform -translate-y-1/2 animate-float" style={{ animationDelay: '1.5s' }}>
           <div className="relative">
-            <div className="w-60 h-28 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1.5">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[4].rating)].map((_, i) => (
@@ -307,11 +307,11 @@ const FloatingReviews: React.FC = () => {
         </div>
       )}
 
-      {/* Balloon 6 - Right Side Middle (Safe Blank Space) */}
+      {/* Balloon 6 - Right Edge Center (Completely Safe) */}
       {currentReviews.includes(5) && (
-        <div className="absolute top-1/2 right-2 transform -translate-y-1/2 animate-float" style={{ animationDelay: '2.5s' }}>
+        <div className="absolute top-1/2 -right-1 transform -translate-y-1/2 animate-float" style={{ animationDelay: '2.5s' }}>
           <div className="relative">
-            <div className="w-60 h-28 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1.5">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[5].rating)].map((_, i) => (
