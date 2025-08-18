@@ -66,8 +66,8 @@ const FloatingReviews: React.FC = () => {
       console.log('Setting balloons visible');
       setIsVisible(true);
       
-      // Start with 3 random reviews
-      const initialReviews = [0, 1, 2];
+      // Start with 2 random reviews
+      const initialReviews = [0, 1];
       setCurrentReviews(initialReviews);
     }, 1000);
 
@@ -77,7 +77,7 @@ const FloatingReviews: React.FC = () => {
   useEffect(() => {
     if (!isVisible) return;
 
-    // Show new review every 6 seconds
+    // Show new review every 8 seconds
     const showInterval = setInterval(() => {
       setCurrentReviews(prev => {
         const availableReviews = [0, 1, 2, 3, 4, 5].filter(i => !prev.includes(i));
@@ -86,16 +86,16 @@ const FloatingReviews: React.FC = () => {
         const newReviewIndex = availableReviews[Math.floor(Math.random() * availableReviews.length)];
         const newReviews = [...prev, newReviewIndex];
         
-        // Keep only 4 reviews visible
-        if (newReviews.length > 4) {
-          return newReviews.slice(-4);
+        // Keep only 3 reviews visible to avoid clutter
+        if (newReviews.length > 3) {
+          return newReviews.slice(-3);
         }
         
         return newReviews;
       });
-    }, 6000);
+    }, 8000);
 
-    // Hide random review every 8 seconds
+    // Hide random review every 10 seconds
     const hideInterval = setInterval(() => {
       setCurrentReviews(prev => {
         if (prev.length <= 1) return prev;
@@ -103,7 +103,7 @@ const FloatingReviews: React.FC = () => {
         const randomIndex = Math.floor(Math.random() * prev.length);
         return prev.filter((_, index) => index !== randomIndex);
       });
-    }, 8000);
+    }, 10000);
 
     return () => {
       clearInterval(showInterval);
@@ -119,27 +119,27 @@ const FloatingReviews: React.FC = () => {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-      {/* Balloon 1 - Top Left Corner (Blank Space) */}
+      {/* Balloon 1 - Far Left Side (Blank Space) */}
       {currentReviews.includes(0) && (
-        <div className="absolute top-8 left-8 animate-float">
+        <div className="absolute top-1/3 left-4 animate-float">
           <div className="relative">
-            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[0].rating)].map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-2 h-2 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <Quote className="w-3 h-3 text-blue-400/70" />
+                <Quote className="w-2.5 h-2.5 text-blue-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-2 font-medium">
+              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight">
                 "{reviews[0].review}"
               </p>
               
-              <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 rounded-full bg-blue-400/60 flex items-center justify-center">
-                  <User className="w-2.5 h-2.5 text-white" />
+              <div className="flex items-center space-x-1.5">
+                <div className="w-4 h-4 rounded-full bg-blue-400/50 flex items-center justify-center">
+                  <User className="w-2 h-2 text-white" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-gray-800">{reviews[0].name}</div>
@@ -147,34 +147,34 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Balloon 2 - Top Right Corner (Blank Space) */}
+      {/* Balloon 2 - Far Right Side (Blank Space) */}
       {currentReviews.includes(1) && (
-        <div className="absolute top-8 right-8 animate-float" style={{ animationDelay: '1s' }}>
+        <div className="absolute top-1/3 right-4 animate-float" style={{ animationDelay: '1s' }}>
           <div className="relative">
-            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[1].rating)].map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-2 h-2 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <Quote className="w-3 h-3 text-purple-400/70" />
+                <Quote className="w-2.5 h-2.5 text-purple-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-2 font-medium">
+              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight">
                 "{reviews[1].review}"
               </p>
               
-              <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 rounded-full bg-purple-400/60 flex items-center justify-center">
-                  <User className="w-2.5 h-2.5 text-white" />
+              <div className="flex items-center space-x-1.5">
+                <div className="w-4 h-4 rounded-full bg-purple-400/50 flex items-center justify-center">
+                  <User className="w-2 h-2 text-white" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-gray-800">{reviews[1].name}</div>
@@ -182,34 +182,34 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Balloon 3 - Bottom Left Corner (Blank Space) */}
+      {/* Balloon 3 - Left Side Middle (Blank Space) */}
       {currentReviews.includes(2) && (
-        <div className="absolute bottom-8 left-8 animate-float" style={{ animationDelay: '2s' }}>
+        <div className="absolute top-2/3 left-4 animate-float" style={{ animationDelay: '2s' }}>
           <div className="relative">
-            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[2].rating)].map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-2 h-2 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <Quote className="w-3 h-3 text-green-400/70" />
+                <Quote className="w-2.5 h-2.5 text-green-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-2 font-medium">
+              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight">
                 "{reviews[2].review}"
               </p>
               
-              <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 rounded-full bg-green-400/60 flex items-center justify-center">
-                  <User className="w-2.5 h-2.5 text-white" />
+              <div className="flex items-center space-x-1.5">
+                <div className="w-4 h-4 rounded-full bg-green-400/50 flex items-center justify-center">
+                  <User className="w-2 h-2 text-white" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-gray-800">{reviews[2].name}</div>
@@ -217,34 +217,34 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Balloon 4 - Bottom Right Corner (Blank Space) */}
+      {/* Balloon 4 - Right Side Middle (Blank Space) */}
       {currentReviews.includes(3) && (
-        <div className="absolute bottom-8 right-8 animate-float" style={{ animationDelay: '0.5s' }}>
+        <div className="absolute top-2/3 right-4 animate-float" style={{ animationDelay: '0.5s' }}>
           <div className="relative">
-            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[3].rating)].map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-2 h-2 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <Quote className="w-3 h-3 text-orange-400/70" />
+                <Quote className="w-2.5 h-2.5 text-orange-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-2 font-medium">
+              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight">
                 "{reviews[3].review}"
               </p>
               
-              <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 rounded-full bg-orange-400/60 flex items-center justify-center">
-                  <User className="w-2.5 h-2.5 text-white" />
+              <div className="flex items-center space-x-1.5">
+                <div className="w-4 h-4 rounded-full bg-orange-400/50 flex items-center justify-center">
+                  <User className="w-2 h-2 text-white" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-gray-800">{reviews[3].name}</div>
@@ -252,34 +252,34 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Balloon 5 - Top Center (Blank Space) */}
+      {/* Balloon 5 - Left Side Upper (Blank Space) */}
       {currentReviews.includes(4) && (
-        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 animate-float" style={{ animationDelay: '1.5s' }}>
+        <div className="absolute top-1/4 left-4 animate-float" style={{ animationDelay: '1.5s' }}>
           <div className="relative">
-            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[4].rating)].map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-2 h-2 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <Quote className="w-3 h-3 text-pink-400/70" />
+                <Quote className="w-2.5 h-2.5 text-pink-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-2 font-medium">
+              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight">
                 "{reviews[4].review}"
               </p>
               
-              <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 rounded-full bg-pink-400/60 flex items-center justify-center">
-                  <User className="w-2.5 h-2.5 text-white" />
+              <div className="flex items-center space-x-1.5">
+                <div className="w-4 h-4 rounded-full bg-pink-400/50 flex items-center justify-center">
+                  <User className="w-2 h-2 text-white" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-gray-800">{reviews[4].name}</div>
@@ -287,34 +287,34 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Balloon 6 - Center Right (Blank Space) */}
+      {/* Balloon 6 - Right Side Upper (Blank Space) */}
       {currentReviews.includes(5) && (
-        <div className="absolute top-1/2 right-16 transform -translate-y-1/2 animate-float" style={{ animationDelay: '2.5s' }}>
+        <div className="absolute top-1/4 right-4 animate-float" style={{ animationDelay: '2.5s' }}>
           <div className="relative">
-            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
               <div className="flex items-start justify-between mb-1">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[5].rating)].map((_, i) => (
-                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                    <Star key={i} className="w-2 h-2 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <Quote className="w-3 h-3 text-indigo-400/70" />
+                <Quote className="w-2.5 h-2.5 text-indigo-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-2 font-medium">
+              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight">
                 "{reviews[5].review}"
               </p>
               
-              <div className="flex items-center space-x-2">
-                <div className="w-5 h-5 rounded-full bg-indigo-400/60 flex items-center justify-center">
-                  <User className="w-2.5 h-2.5 text-white" />
+              <div className="flex items-center space-x-1.5">
+                <div className="w-4 h-4 rounded-full bg-indigo-400/50 flex items-center justify-center">
+                  <User className="w-2 h-2 text-white" />
                 </div>
                 <div>
                   <div className="text-xs font-semibold text-gray-800">{reviews[5].name}</div>
@@ -322,8 +322,8 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
