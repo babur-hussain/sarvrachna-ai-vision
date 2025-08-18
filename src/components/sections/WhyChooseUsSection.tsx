@@ -1,8 +1,8 @@
-import { Zap, Shield, Clock, Trophy, Users, Lightbulb } from "lucide-react";
+import { Zap, Shield, Clock, Trophy, Users, Lightbulb, X } from "lucide-react";
 import { useState } from "react";
 
 const WhyChooseUsSection = () => {
-  const [flippedCard, setFlippedCard] = useState<number | null>(null);
+  const [selectedCard, setSelectedCard] = useState<number | null>(null);
 
   const reasons = [
     {
@@ -14,6 +14,16 @@ const WhyChooseUsSection = () => {
       color: "blue",
       bgColor: "bg-blue-500",
       textColor: "text-blue-500",
+      details: [
+        "Agile Development Methodology",
+        "Pre-built Component Library",
+        "Automated Testing & Deployment",
+        "Continuous Integration/Continuous Deployment (CI/CD)",
+        "Microservices Architecture",
+        "Cloud-Native Development",
+        "Performance Optimization",
+        "Scalability Planning"
+      ]
     },
     {
       icon: Lightbulb,
@@ -24,6 +34,16 @@ const WhyChooseUsSection = () => {
       color: "cyan",
       bgColor: "bg-cyan-500",
       textColor: "text-cyan-500",
+      details: [
+        "AI & Machine Learning Integration",
+        "Blockchain & Web3 Solutions",
+        "IoT & Edge Computing",
+        "Augmented & Virtual Reality",
+        "Quantum Computing Research",
+        "5G & Next-Gen Networks",
+        "Sustainable Tech Solutions",
+        "Emerging Framework Adoption"
+      ]
     },
     {
       icon: Shield,
@@ -34,6 +54,16 @@ const WhyChooseUsSection = () => {
       color: "violet",
       bgColor: "bg-violet-500",
       textColor: "text-violet-500",
+      details: [
+        "ISO 27001 Certification",
+        "End-to-End Encryption",
+        "Multi-Factor Authentication",
+        "Penetration Testing",
+        "Security Audits & Compliance",
+        "Data Privacy Protection",
+        "Threat Detection & Response",
+        "Disaster Recovery Planning"
+      ]
     },
     {
       icon: Clock,
@@ -44,6 +74,16 @@ const WhyChooseUsSection = () => {
       color: "pink",
       bgColor: "bg-pink-500",
       textColor: "text-pink-500",
+      details: [
+        "24/7 Technical Support",
+        "15-Minute Response Time",
+        "99.9% Uptime Guarantee",
+        "Dedicated Support Team",
+        "Remote Monitoring & Maintenance",
+        "Emergency Response Protocols",
+        "Proactive Issue Detection",
+        "Performance Optimization"
+      ]
     },
     {
       icon: Trophy,
@@ -54,6 +94,16 @@ const WhyChooseUsSection = () => {
       color: "sky",
       bgColor: "bg-sky-500",
       textColor: "text-sky-500",
+      details: [
+        "500+ Successful Projects",
+        "40% Average Efficiency Gain",
+        "60% Cost Reduction",
+        "300% Average ROI",
+        "Client Success Stories",
+        "Case Study Documentation",
+        "Performance Metrics",
+        "Long-term Partnership Success"
+      ]
     },
     {
       icon: Users,
@@ -64,11 +114,25 @@ const WhyChooseUsSection = () => {
       color: "cyan",
       bgColor: "bg-cyan-500",
       textColor: "text-cyan-500",
+      details: [
+        "50+ Certified Professionals",
+        "20+ Technology Expertise",
+        "10+ Industry Experience",
+        "AI & ML Specialists",
+        "Full-Stack Developers",
+        "DevOps Engineers",
+        "UX/UI Designers",
+        "Project Managers"
+      ]
     },
   ];
 
   const handleCardClick = (index: number) => {
-    setFlippedCard(flippedCard === index ? null : index);
+    setSelectedCard(index);
+  };
+
+  const closePopup = () => {
+    setSelectedCard(null);
   };
 
   return (
@@ -96,59 +160,36 @@ const WhyChooseUsSection = () => {
           </p>
         </div>
 
-        {/* Flip Cards Grid */}
+        {/* Feature Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {reasons.map((reason, index) => {
             const Icon = reason.icon;
-            const isFlipped = flippedCard === index;
             
             return (
               <div
                 key={index}
-                className="h-64 cursor-pointer perspective-1000"
+                className="h-64 cursor-pointer group"
                 onClick={() => handleCardClick(index)}
               >
-                <div className={`relative w-full h-full transition-transform duration-700 preserve-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
-                  {/* Front Side */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl glass border p-6 hover-lift transition-smooth">
-                    <div className={`w-12 h-12 rounded-xl ${reason.bgColor}/10 flex items-center justify-center mb-4`}>
-                      <Icon className={`h-6 w-6 ${reason.textColor}`} />
-                    </div>
-                    
-                    <h3 className="text-xl font-bold mb-2 text-foreground">
-                      {reason.title}
-                    </h3>
-                    
-                    <p className="text-sm text-sky-500 font-medium mb-4">
-                      {reason.subtitle}
-                    </p>
-                    
-                    <p className="text-muted-foreground leading-relaxed">
-                      {reason.frontContent}
-                    </p>
-
-                    <div className="absolute bottom-4 right-4 text-xs text-muted-foreground">
-                      Click to flip →
-                    </div>
+                <div className="relative w-full h-full rounded-2xl glass border p-6 hover-lift transition-smooth">
+                  <div className={`w-12 h-12 rounded-xl ${reason.bgColor}/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <Icon className={`h-6 w-6 ${reason.textColor}`} />
                   </div>
+                  
+                  <h3 className="text-xl font-bold mb-2 text-foreground">
+                    {reason.title}
+                  </h3>
+                  
+                  <p className="text-sm text-sky-500 font-medium mb-4">
+                    {reason.subtitle}
+                  </p>
+                  
+                  <p className="text-muted-foreground leading-relaxed">
+                    {reason.frontContent}
+                  </p>
 
-                  {/* Back Side */}
-                  <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl glass border p-6 hover-lift transition-smooth gradient-card">
-                    <div className={`w-12 h-12 rounded-xl ${reason.bgColor}/20 flex items-center justify-center mb-4`}>
-                      <Icon className={`h-6 w-6 ${reason.textColor}`} />
-                    </div>
-                    
-                    <h3 className="text-xl font-bold mb-4 text-foreground">
-                      {reason.title}
-                    </h3>
-                    
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {reason.backContent}
-                    </p>
-
-                    <div className="absolute bottom-4 right-4 text-xs text-muted-foreground">
-                      ← Click to flip back
-                    </div>
+                  <div className="absolute bottom-4 right-4 text-xs text-muted-foreground group-hover:text-foreground transition-colors">
+                    Click for details →
                   </div>
                 </div>
               </div>
@@ -176,6 +217,85 @@ const WhyChooseUsSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Detail Popup Modal */}
+      {selectedCard !== null && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-background rounded-2xl border shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              {/* Header */}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center space-x-4">
+                  <div className={`w-16 h-16 rounded-xl ${reasons[selectedCard].bgColor}/10 flex items-center justify-center`}>
+                    {(() => {
+                      const IconComponent = reasons[selectedCard].icon;
+                      return <IconComponent className={`h-8 w-8 ${reasons[selectedCard].textColor}`} />;
+                    })()}
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-bold text-foreground">
+                      {reasons[selectedCard].title}
+                    </h3>
+                    <p className="text-lg text-sky-500 font-medium">
+                      {reasons[selectedCard].subtitle}
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={closePopup}
+                  className="w-8 h-8 rounded-full bg-muted hover:bg-muted/80 flex items-center justify-center transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
+
+              {/* Content */}
+              <div className="space-y-6">
+                <div>
+                  <h4 className="text-lg font-semibold mb-3 text-foreground">Overview</h4>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {reasons[selectedCard].frontContent}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold mb-3 text-foreground">What We Deliver</h4>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    {reasons[selectedCard].backContent}
+                  </p>
+                </div>
+
+                <div>
+                  <h4 className="text-lg font-semibold mb-3 text-foreground">Key Features</h4>
+                  <ul className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {reasons[selectedCard].details.map((detail, index) => (
+                      <li key={index} className="flex items-center space-x-2">
+                        <div className={`w-2 h-2 rounded-full ${reasons[selectedCard].bgColor}`}></div>
+                        <span className="text-muted-foreground text-sm">{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              {/* Footer */}
+              <div className="mt-8 pt-6 border-t border-border">
+                <div className="flex items-center justify-between">
+                  <div className="text-sm text-muted-foreground">
+                    Ready to experience the difference?
+                  </div>
+                  <button
+                    onClick={closePopup}
+                    className="px-6 py-2 bg-sky-500 hover:bg-sky-600 text-white rounded-lg transition-colors"
+                  >
+                    Get Started
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
