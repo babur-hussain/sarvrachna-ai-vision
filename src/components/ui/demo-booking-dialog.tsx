@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { X, Calendar, Clock, User, Mail, Phone, Building, MessageSquare, Sparkles, Zap, Target } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { X, Calendar, Clock, User, Mail, Phone, Building, MessageSquare, Sparkles, Zap, Target, AlertCircle, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { DemoBookingService, type DemoBookingFormData } from "@/services/demo-booking";
 
 interface DemoBookingDialogProps {
   isOpen: boolean;
@@ -8,7 +9,7 @@ interface DemoBookingDialogProps {
 }
 
 const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<DemoBookingFormData>({
     name: "",
     email: "",
     phone: "",
@@ -21,6 +22,35 @@ const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+
+  // Reset form when dialog opens
+  useEffect(() => {
+    if (isOpen) {
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        message: "",
+        preferredDate: "",
+        preferredTime: "",
+        service: "ai-solutions"
+      });
+      setError(null);
+      setAvailableSlots([]);
+    }
+  }, [isOpen]);
+
+  // Fetch available time slots when date or service changes
+  useEffect(() => {
+    if (formData.preferredDate && formData.service) {
+      DemoBookingService.getAvailableSlots(formData.preferredDate, formData.service)
+        .then(slots => setAvailableSlots(slots))
+        .catch(err => console.error('Failed to fetch available slots:', err));
+    }
+  }, [formData.preferredDate, formData.service]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData({
@@ -32,28 +62,38 @@ const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setError(null);
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        message: "",
-        preferredDate: "",
-        preferredTime: "",
-        service: "ai-solutions"
-      });
-      onClose();
-    }, 3000);
+    try {
+      const response = await DemoBookingService.submitBooking(formData);
+      
+      if (response.success) {
+        setIsSubmitted(true);
+        
+        // Reset form after 3 seconds
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({
+            name: "",
+            email: "",
+            phone: "",
+            company: "",
+            message: "",
+            preferredDate: "",
+            preferredTime: "",
+            service: "ai-solutions"
+          });
+          onClose();
+        }, 3000);
+      } else {
+        setError(response.error || 'Failed to submit booking');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred. Please try again.');
+      console.error('Submit error:', err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (!isOpen) return null;
@@ -297,14 +337,31 @@ const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }
                       className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/20 focus:border-brand-sky/50 focus:outline-none focus:ring-2 focus:ring-brand-sky/20 transition-all duration-300 text-foreground"
                     >
                       <option value="">Select time</option>
-                      <option value="09:00">9:00 AM</option>
-                      <option value="10:00">10:00 AM</option>
-                      <option value="11:00">11:00 AM</option>
-                      <option value="12:00">12:00 PM</option>
-                      <option value="13:00">1:00 PM</option>
-                      <option value="14:00">2:00 PM</option>
-                      <option value="15:00">3:00 PM</option>
-                      <option value="16:00">4:00 PM</option>
+                      {availableSlots.length > 0 ? (
+                        availableSlots.map(time => (
+                          <option key={time} value={time}>
+                            {time === '09:00' ? '9:00 AM' : 
+                             time === '10:00' ? '10:00 AM' : 
+                             time === '11:00' ? '11:00 AM' : 
+                             time === '12:00' ? '12:00 PM' : 
+                             time === '13:00' ? '1:00 PM' : 
+                             time === '14:00' ? '2:00 PM' : 
+                             time === '15:00' ? '3:00 PM' : 
+                             time === '16:00' ? '4:00 PM' : time}
+                          </option>
+                        ))
+                      ) : (
+                        <>
+                          <option value="09:00">9:00 AM</option>
+                          <option value="10:00">10:00 AM</option>
+                          <option value="11:00">11:00 AM</option>
+                          <option value="12:00">12:00 PM</option>
+                          <option value="13:00">1:00 PM</option>
+                          <option value="14:00">2:00 PM</option>
+                          <option value="15:00">3:00 PM</option>
+                          <option value="16:00">4:00 PM</option>
+                        </>
+                      )}
                     </select>
                   </div>
                 </div>
@@ -323,6 +380,14 @@ const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }
                     placeholder="Tell us about your project or specific requirements..."
                   />
                 </div>
+
+                {/* Error Display */}
+                {error && (
+                  <div className="flex items-center p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600">
+                    <AlertCircle className="w-5 h-5 mr-3 flex-shrink-0" />
+                    <span className="text-sm">{error}</span>
+                  </div>
+                )}
 
                 {/* Submit Button */}
                 <Button

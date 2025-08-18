@@ -14,7 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      demo_bookings: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          name: string
+          email: string
+          phone: string | null
+          company: string | null
+          message: string | null
+          preferred_date: string
+          preferred_time: string
+          service: 'ai-solutions' | 'web-development' | 'custom-solution'
+          status: string
+          metadata: Json
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          name: string
+          email: string
+          phone?: string | null
+          company?: string | null
+          message?: string | null
+          preferred_date: string
+          preferred_time: string
+          service: 'ai-solutions' | 'web-development' | 'custom-solution'
+          status?: string
+          metadata?: Json
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          name?: string
+          email?: string
+          phone?: string | null
+          company?: string | null
+          message?: string | null
+          preferred_date?: string
+          preferred_time?: string
+          service?: 'ai-solutions' | 'web-development' | 'custom-solution'
+          status?: string
+          metadata?: Json
+        }
+      }
     }
     Views: {
       [_ in never]: never
