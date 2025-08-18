@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star, Quote, User } from 'lucide-react';
 
 interface ClientReview {
@@ -12,249 +12,322 @@ interface ClientReview {
 const reviews: ClientReview[] = [
   {
     id: '1',
-    name: 'Sarah Johnson',
-    company: 'TechCorp Inc.',
+    name: 'Priya Sharma',
+    company: 'TechCorp India',
     review: 'Sarvrachna transformed our business with their AI solutions. Incredible results!',
     rating: 5
   },
   {
     id: '2',
-    name: 'Michael Chen',
-    company: 'InnovateLab',
+    name: 'Arjun Patel',
+    company: 'InnovateLab Solutions',
     review: 'The holographic interfaces are mind-blowing. Our clients love it!',
     rating: 5
   },
   {
     id: '3',
-    name: 'Emily Rodriguez',
-    company: 'FutureTech',
+    name: 'Ananya Reddy',
+    company: 'FutureTech Systems',
     review: '3x faster performance as promised. Exceeded all expectations!',
     rating: 5
   },
   {
     id: '4',
-    name: 'David Kim',
-    company: 'SmartSolutions',
+    name: 'Rahul Verma',
+    company: 'SmartSolutions India',
     review: 'Best investment we made this year. ROI was immediate!',
     rating: 5
   },
   {
     id: '5',
-    name: 'Lisa Thompson',
-    company: 'NextGen Systems',
+    name: 'Zara Khan',
+    company: 'NextGen Technologies',
     review: 'Professional team, cutting-edge technology, outstanding results!',
     rating: 5
   },
   {
     id: '6',
-    name: 'Alex Morgan',
+    name: 'Vikram Singh',
     company: 'Digital Dynamics',
     review: 'They delivered everything on time and beyond our expectations!',
     rating: 5
   }
 ];
 
-interface VisibleReview extends ClientReview {
-  position: { x: number; y: number };
-  opacity: number;
-  scale: number;
-  rotation: number;
-  delay: number;
-  isVisible: boolean;
-}
-
 const FloatingReviews: React.FC = () => {
-  const [visibleReviews, setVisibleReviews] = useState<VisibleReview[]>([]);
-  const [isMounted, setIsMounted] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const [currentReviews, setCurrentReviews] = useState<number[]>([]);
 
-  const generateRandomPosition = useCallback(() => {
-    if (typeof window === 'undefined') {
-      return { x: 150, y: 150 };
-    }
-    
-    const margin = 150;
-    const maxX = Math.max(200, window.innerWidth - 400);
-    const maxY = Math.max(200, window.innerHeight - 200);
-    
-    return {
-      x: margin + Math.random() * (maxX - margin),
-      y: margin + Math.random() * (maxY - margin)
-    };
-  }, []);
-
-  const generateRandomTransform = useCallback(() => {
-    return {
-      opacity: 0.9 + Math.random() * 0.1,
-      scale: 0.95 + Math.random() * 0.1,
-      rotation: (Math.random() - 0.5) * 8,
-      delay: Math.random() * 2
-    };
-  }, []);
-
-  const createReview = useCallback((review: ClientReview): VisibleReview => {
-    return {
-      ...review,
-      ...generateRandomPosition(),
-      ...generateRandomTransform(),
-      isVisible: true
-    };
-  }, [generateRandomPosition, generateRandomTransform]);
-
-  const showNewReview = useCallback(() => {
-    setVisibleReviews(prev => {
-      const availableReviews = reviews.filter(review => 
-        !prev.some(vr => vr.id === review.id)
-      );
-      
-      if (availableReviews.length === 0) return prev;
-      
-      const randomReview = availableReviews[Math.floor(Math.random() * availableReviews.length)];
-      const newReview = createReview(randomReview);
-      
-      return [...prev, newReview];
-    });
-  }, [createReview]);
-
-  const hideRandomReview = useCallback(() => {
-    setVisibleReviews(prev => {
-      if (prev.length === 0) return prev;
-      
-      const randomIndex = Math.floor(Math.random() * prev.length);
-      const updatedReviews = prev.map((review, index) => 
-        index === randomIndex ? { ...review, isVisible: false } : review
-      );
-      
-      // Remove the hidden review after animation
-      setTimeout(() => {
-        setVisibleReviews(current => current.filter((_, idx) => idx !== randomIndex));
-      }, 1000);
-      
-      return updatedReviews;
-    });
-  }, []);
-
-  // Initialize component
   useEffect(() => {
-    setIsMounted(true);
+    console.log('FloatingReviews component mounted');
+    
+    // Show balloons after a short delay
+    const timer = setTimeout(() => {
+      console.log('Setting balloons visible');
+      setIsVisible(true);
+      
+      // Start with 3 random reviews
+      const initialReviews = [0, 1, 2];
+      setCurrentReviews(initialReviews);
+    }, 1000);
+
+    return () => clearTimeout(timer);
   }, []);
 
-  // Set up initial reviews and intervals
   useEffect(() => {
-    if (!isMounted || typeof window === 'undefined') return;
+    if (!isVisible) return;
 
-    console.log('Setting up floating reviews...');
-
-    // Show initial reviews immediately
-    const initialReviews = reviews.slice(0, 3).map(review => createReview(review));
-    console.log('Initial reviews created:', initialReviews);
-    setVisibleReviews(initialReviews);
-
-    // Show new review every 5-7 seconds
+    // Show new review every 6 seconds
     const showInterval = setInterval(() => {
-      if (visibleReviews.length < 4) {
-        showNewReview();
-      }
-    }, 5000 + Math.random() * 2000);
+      setCurrentReviews(prev => {
+        const availableReviews = [0, 1, 2, 3, 4, 5].filter(i => !prev.includes(i));
+        if (availableReviews.length === 0) return prev;
+        
+        const newReviewIndex = availableReviews[Math.floor(Math.random() * availableReviews.length)];
+        const newReviews = [...prev, newReviewIndex];
+        
+        // Keep only 4 reviews visible
+        if (newReviews.length > 4) {
+          return newReviews.slice(-4);
+        }
+        
+        return newReviews;
+      });
+    }, 6000);
 
-    // Hide random review every 6-9 seconds
+    // Hide random review every 8 seconds
     const hideInterval = setInterval(() => {
-      if (visibleReviews.length > 0) {
-        hideRandomReview();
-      }
-    }, 6000 + Math.random() * 3000);
+      setCurrentReviews(prev => {
+        if (prev.length <= 1) return prev;
+        
+        const randomIndex = Math.floor(Math.random() * prev.length);
+        return prev.filter((_, index) => index !== randomIndex);
+      });
+    }, 8000);
 
     return () => {
       clearInterval(showInterval);
       clearInterval(hideInterval);
     };
-  }, [isMounted, createReview, showNewReview, hideRandomReview]);
+  }, [isVisible]);
 
-  // Don't render until mounted
-  if (!isMounted) {
+  if (!isVisible) {
     return null;
   }
 
-  // Safety check - don't render if no reviews or if any review is missing position
-  if (visibleReviews.length === 0) {
-    return null;
-  }
+  console.log('Rendering floating balloons, current reviews:', currentReviews);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-40 overflow-hidden">
-      {visibleReviews.map((review) => {
-        // Safety check for position - skip rendering if position is invalid
-        if (!review.position || typeof review.position.x !== 'number' || typeof review.position.y !== 'number') {
-          console.warn('Review missing position:', review);
-          return null;
-        }
-
-        return (
-          <div
-            key={review.id}
-            className={`absolute transition-all duration-1000 ease-out ${
-              review.isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-95 -translate-y-4'
-            }`}
-            style={{
-              left: review.position.x,
-              top: review.position.y,
-              transform: `scale(${review.scale}) rotate(${review.rotation}deg)`,
-              animationDelay: `${review.delay}s`
-            }}
-          >
-            {/* Cloud/Balloon Shape */}
-            <div className="relative animate-float-gentle">
-              {/* Main cloud body with soft edges */}
-              <div className="relative w-72 h-32 bg-gradient-to-br from-white/95 via-white/90 to-white/85 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-white/40 overflow-hidden hover:shadow-3xl transition-all duration-500">
-                {/* Floating particles */}
-                <div className="absolute inset-0 overflow-hidden">
-                  <div className="absolute top-3 left-6 w-2 h-2 bg-brand-sky/40 rounded-full animate-pulse" style={{ animationDelay: '0.5s' }}></div>
-                  <div className="absolute top-8 right-8 w-1.5 h-1.5 bg-brand-violet/40 rounded-full animate-pulse" style={{ animationDelay: '1s' }}></div>
-                  <div className="absolute bottom-6 left-10 w-1 h-1 bg-brand-pink/40 rounded-full animate-pulse" style={{ animationDelay: '1.5s' }}></div>
+    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
+      {/* Balloon 1 - Top Left Corner (Blank Space) */}
+      {currentReviews.includes(0) && (
+        <div className="absolute top-8 left-8 animate-float">
+          <div className="relative">
+            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+              <div className="flex items-start justify-between mb-1">
+                <div className="flex items-center space-x-1">
+                  {[...Array(reviews[0].rating)].map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                  ))}
                 </div>
-                
-                {/* Content */}
-                <div className="relative z-10 p-4 h-full flex flex-col">
-                  {/* Header with rating */}
-                  <div className="flex items-start justify-between mb-2">
-                    <div className="flex items-center space-x-1">
-                      {[...Array(review.rating)].map((_, i) => (
-                        <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400 drop-shadow-sm" />
-                      ))}
-                    </div>
-                    <Quote className="w-4 h-4 text-brand-sky/70" />
-                  </div>
-                  
-                  {/* Review text */}
-                  <p className="text-sm text-gray-700 leading-relaxed flex-1 mb-3 line-clamp-3 font-medium">
-                    "{review.review}"
-                  </p>
-                  
-                  {/* Author info */}
-                  <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 rounded-full bg-gradient-to-br from-brand-sky to-brand-violet flex items-center justify-center shadow-sm">
-                      <User className="w-3 h-3 text-white" />
-                    </div>
-                    <div>
-                      <div className="text-xs font-semibold text-gray-800">{review.name}</div>
-                      <div className="text-xs text-gray-600">{review.company}</div>
-                    </div>
-                  </div>
-                </div>
+                <Quote className="w-3 h-3 text-blue-400/70" />
               </div>
               
-              {/* Cloud tail/bottom */}
-              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2">
-                <div className="w-0 h-0 border-l-[8px] border-r-[8px] border-t-[10px] border-l-transparent border-r-transparent border-t-white/80"></div>
-              </div>
+              <p className="text-xs text-gray-800 mb-2 font-medium">
+                "{reviews[0].review}"
+              </p>
               
-              {/* Floating animation overlay */}
-              <div className="absolute inset-0 animate-float-gentle pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-transparent via-white/20 to-transparent rounded-[2rem]"></div>
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 rounded-full bg-blue-400/60 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-gray-800">{reviews[0].name}</div>
+                  <div className="text-xs text-gray-600">{reviews[0].company}</div>
+                </div>
               </div>
             </div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            </div>
           </div>
-        );
-      })}
+        </div>
+      )}
+
+      {/* Balloon 2 - Top Right Corner (Blank Space) */}
+      {currentReviews.includes(1) && (
+        <div className="absolute top-8 right-8 animate-float" style={{ animationDelay: '1s' }}>
+          <div className="relative">
+            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+              <div className="flex items-start justify-between mb-1">
+                <div className="flex items-center space-x-1">
+                  {[...Array(reviews[1].rating)].map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <Quote className="w-3 h-3 text-purple-400/70" />
+              </div>
+              
+              <p className="text-xs text-gray-800 mb-2 font-medium">
+                "{reviews[1].review}"
+              </p>
+              
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 rounded-full bg-purple-400/60 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-gray-800">{reviews[1].name}</div>
+                  <div className="text-xs text-gray-600">{reviews[1].company}</div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Balloon 3 - Bottom Left Corner (Blank Space) */}
+      {currentReviews.includes(2) && (
+        <div className="absolute bottom-8 left-8 animate-float" style={{ animationDelay: '2s' }}>
+          <div className="relative">
+            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+              <div className="flex items-start justify-between mb-1">
+                <div className="flex items-center space-x-1">
+                  {[...Array(reviews[2].rating)].map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <Quote className="w-3 h-3 text-green-400/70" />
+              </div>
+              
+              <p className="text-xs text-gray-800 mb-2 font-medium">
+                "{reviews[2].review}"
+              </p>
+              
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 rounded-full bg-green-400/60 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-gray-800">{reviews[2].name}</div>
+                  <div className="text-xs text-gray-600">{reviews[2].company}</div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Balloon 4 - Bottom Right Corner (Blank Space) */}
+      {currentReviews.includes(3) && (
+        <div className="absolute bottom-8 right-8 animate-float" style={{ animationDelay: '0.5s' }}>
+          <div className="relative">
+            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+              <div className="flex items-start justify-between mb-1">
+                <div className="flex items-center space-x-1">
+                  {[...Array(reviews[3].rating)].map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <Quote className="w-3 h-3 text-orange-400/70" />
+              </div>
+              
+              <p className="text-xs text-gray-800 mb-2 font-medium">
+                "{reviews[3].review}"
+              </p>
+              
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 rounded-full bg-orange-400/60 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-gray-800">{reviews[3].name}</div>
+                  <div className="text-xs text-gray-600">{reviews[3].company}</div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Balloon 5 - Top Center (Blank Space) */}
+      {currentReviews.includes(4) && (
+        <div className="absolute top-16 left-1/2 transform -translate-x-1/2 animate-float" style={{ animationDelay: '1.5s' }}>
+          <div className="relative">
+            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+              <div className="flex items-start justify-between mb-1">
+                <div className="flex items-center space-x-1">
+                  {[...Array(reviews[4].rating)].map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <Quote className="w-3 h-3 text-pink-400/70" />
+              </div>
+              
+              <p className="text-xs text-gray-800 mb-2 font-medium">
+                "{reviews[4].review}"
+              </p>
+              
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 rounded-full bg-pink-400/60 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-gray-800">{reviews[4].name}</div>
+                  <div className="text-xs text-gray-600">{reviews[4].company}</div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Balloon 6 - Center Right (Blank Space) */}
+      {currentReviews.includes(5) && (
+        <div className="absolute top-1/2 right-16 transform -translate-y-1/2 animate-float" style={{ animationDelay: '2.5s' }}>
+          <div className="relative">
+            <div className="w-64 h-28 bg-gradient-to-br from-white/30 via-white/25 to-white/20 backdrop-blur-sm rounded-2xl shadow-lg border border-white/20 p-3">
+              <div className="flex items-start justify-between mb-1">
+                <div className="flex items-center space-x-1">
+                  {[...Array(reviews[5].rating)].map((_, i) => (
+                    <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <Quote className="w-3 h-3 text-indigo-400/70" />
+              </div>
+              
+              <p className="text-xs text-gray-800 mb-2 font-medium">
+                "{reviews[5].review}"
+              </p>
+              
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 rounded-full bg-indigo-400/60 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-gray-800">{reviews[5].name}</div>
+                  <div className="text-xs text-gray-600">{reviews[5].company}</div>
+                </div>
+              </div>
+            </div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/30"></div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
