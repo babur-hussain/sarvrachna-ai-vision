@@ -9,8 +9,12 @@ import {
   TrendingUp,
   ArrowRight
 } from "lucide-react";
+import { useState } from "react";
+import CustomSolutionDialog from "@/components/ui/custom-solution-dialog";
 
 const ServicesSection = () => {
+  const [isCustomSolutionOpen, setIsCustomSolutionOpen] = useState(false);
+  
   const services = [
     {
       icon: Smartphone,
@@ -137,12 +141,21 @@ const ServicesSection = () => {
             <span className="text-lg font-medium mr-4">
               Need a custom solution?
             </span>
-            <button className="px-6 py-2 gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-smooth">
+            <button 
+              onClick={() => setIsCustomSolutionOpen(true)}
+              className="px-6 py-2 gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-smooth"
+            >
               Let's Talk
             </button>
           </div>
         </div>
       </div>
+      
+      {/* Custom Solution Dialog */}
+      <CustomSolutionDialog 
+        isOpen={isCustomSolutionOpen} 
+        onClose={() => setIsCustomSolutionOpen(false)} 
+      />
     </section>
   );
 };

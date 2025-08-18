@@ -1,6 +1,10 @@
 import { Bot, Brain, BarChart3, Zap, MessageSquare, TrendingUp, Eye, Cog } from "lucide-react";
+import { useState } from "react";
+import CustomSolutionDialog from "@/components/ui/custom-solution-dialog";
 
 const AISolutionsSection = () => {
+  const [isCustomSolutionOpen, setIsCustomSolutionOpen] = useState(false);
+  
   const aiSolutions = [
     {
       icon: Bot,
@@ -96,12 +100,21 @@ const AISolutionsSection = () => {
             <span className="text-lg font-medium mr-6">
               Ready to implement AI in your business?
             </span>
-            <button className="px-6 py-2 gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-smooth">
+            <button 
+              onClick={() => setIsCustomSolutionOpen(true)}
+              className="px-6 py-2 gradient-primary text-white rounded-lg font-medium hover:shadow-glow transition-smooth"
+            >
               Schedule AI Consultation
             </button>
           </div>
         </div>
       </div>
+      
+      {/* Custom Solution Dialog */}
+      <CustomSolutionDialog 
+        isOpen={isCustomSolutionOpen} 
+        onClose={() => setIsCustomSolutionOpen(false)} 
+      />
     </section>
   );
 };

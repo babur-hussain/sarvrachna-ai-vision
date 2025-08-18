@@ -61,6 +61,62 @@ export type Database = {
           metadata?: Json
         }
       }
+      custom_solutions: {
+        Row: {
+          id: string
+          created_at: string
+          updated_at: string
+          name: string
+          email: string
+          phone: string
+          company: string | null
+          website: string | null
+          project_type: string
+          budget: string
+          timeline: string
+          description: string
+          requirements: string | null
+          additional_info: string | null
+          status: 'new' | 'reviewing' | 'contacted' | 'proposal_sent' | 'closed'
+          metadata: Json
+        }
+        Insert: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          name: string
+          email: string
+          phone: string
+          company?: string | null
+          website?: string | null
+          project_type: string
+          budget: string
+          timeline: string
+          description: string
+          requirements?: string | null
+          additional_info?: string | null
+          status?: 'new' | 'reviewing' | 'contacted' | 'proposal_sent' | 'closed'
+          metadata?: Json
+        }
+        Update: {
+          id?: string
+          created_at?: string
+          updated_at?: string
+          name?: string
+          email?: string
+          phone?: string
+          company?: string | null
+          website?: string | null
+          project_type?: string
+          budget?: string
+          timeline?: string
+          description?: string
+          requirements?: string | null
+          additional_info?: string | null
+          status?: 'new' | 'reviewing' | 'contacted' | 'proposal_sent' | 'closed'
+          metadata?: Json
+        }
+      }
     }
     Views: {
       [_ in never]: never
