@@ -2,6 +2,7 @@ import { useEffect, useRef, useState, useCallback, useMemo } from "react";
 import { ArrowRight, Play, ChevronDown, Sparkles, Zap, Target, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLenisContext } from "@/contexts/LenisContext";
+import DemoBookingDialog from "@/components/ui/demo-booking-dialog";
 
 const HeroSection = () => {
   const { lenis } = useLenisContext();
@@ -9,6 +10,7 @@ const HeroSection = () => {
   const [isTyping, setIsTyping] = useState(true);
   const [displayText, setDisplayText] = useState("");
   const [userCountry, setUserCountry] = useState("United States");
+  const [isDemoDialogOpen, setIsDemoDialogOpen] = useState(false);
 
   const texts = useMemo(() => [
     "We Power Businesses.",
@@ -209,6 +211,7 @@ const HeroSection = () => {
               variant="outline" 
               size="lg" 
               className="group"
+              onClick={() => setIsDemoDialogOpen(true)}
             >
               <Play className="mr-2 h-5 w-5" />
               Book a Demo
@@ -246,6 +249,12 @@ const HeroSection = () => {
           <ChevronDown className="h-6 w-6" />
         </button>
       </div>
+
+      {/* Demo Booking Dialog */}
+      <DemoBookingDialog 
+        isOpen={isDemoDialogOpen}
+        onClose={() => setIsDemoDialogOpen(false)}
+      />
     </section>
   );
 };

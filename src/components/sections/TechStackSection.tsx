@@ -1,7 +1,51 @@
-import { useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 
 const TechStackSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer) return;
+
+    let interval: NodeJS.Timeout;
+    let isPaused = false;
+
+    const startScroll = () => {
+      console.log('Starting scroll, container width:', scrollContainer.scrollWidth);
+      console.log('Container client width:', scrollContainer.clientWidth);
+      interval = setInterval(() => {
+        if (!isPaused && scrollContainer) {
+          console.log('Scrolling, current scrollLeft:', scrollContainer.scrollLeft);
+          if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
+            scrollContainer.scrollLeft = 0;
+          } else {
+            scrollContainer.scrollLeft += 1;
+          }
+        }
+      }, 30);
+    };
+
+    const handleMouseEnter = () => {
+      isPaused = true;
+    };
+
+    const handleMouseLeave = () => {
+      isPaused = false;
+    };
+
+    // Start scrolling after a short delay
+    const startDelay = setTimeout(startScroll, 1000);
+
+    scrollContainer.addEventListener('mouseenter', handleMouseEnter);
+    scrollContainer.addEventListener('mouseleave', handleMouseLeave);
+
+    return () => {
+      clearTimeout(startDelay);
+      clearInterval(interval);
+      scrollContainer.removeEventListener('mouseenter', handleMouseEnter);
+      scrollContainer.removeEventListener('mouseleave', handleMouseLeave);
+    };
+  }, []);
 
   const techStacks = [
     { name: "React", logo: "⚛️", category: "Frontend" },
@@ -24,25 +68,11 @@ const TechStackSection = () => {
     { name: "Vercel", logo: "▲", category: "Deployment" },
   ];
 
-  useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
 
-    const scroll = () => {
-      if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth / 2) {
-        scrollContainer.scrollLeft = 0;
-      } else {
-        scrollContainer.scrollLeft += 1;
-      }
-    };
-
-    const interval = setInterval(scroll, 30);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
-    <section className="py-24 bg-surface overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section className="py-24 bg-surface">
+      <div className="container mx-auto px-4 max-w-7xl">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass border mb-6">
@@ -60,13 +90,12 @@ const TechStackSection = () => {
         </div>
 
         {/* Horizontal Scrolling Tech Stack */}
-        <div className="relative">
+        <div className="relative w-full overflow-hidden mb-16 px-4 md:px-0">
           <div 
             ref={scrollRef}
-            className="flex space-x-6 overflow-x-hidden pb-4"
+            className="flex gap-6 pb-4 tech-stack-scroll-container tech-stack-animate"
             style={{ 
-              width: 'calc(200% + 24px)',
-              animation: 'scroll 60s linear infinite'
+              width: 'max-content'
             }}
           >
             {/* First Set */}
@@ -75,7 +104,7 @@ const TechStackSection = () => {
                 key={`first-${index}`}
                 className="flex-shrink-0 group"
               >
-                <div className="w-32 h-32 glass rounded-2xl border flex flex-col items-center justify-center hover-lift hover-glow transition-smooth cursor-pointer">
+                <div className="w-28 h-28 md:w-32 md:h-32 glass rounded-2xl border flex flex-col items-center justify-center hover-lift hover-glow transition-smooth cursor-pointer">
                   <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
                     {tech.logo}
                   </div>
@@ -95,7 +124,7 @@ const TechStackSection = () => {
                 key={`second-${index}`}
                 className="flex-shrink-0 group"
               >
-                <div className="w-32 h-32 glass rounded-2xl border flex flex-col items-center justify-center hover-lift hover-glow transition-smooth cursor-pointer">
+                <div className="w-28 h-28 md:w-32 md:h-32 glass rounded-2xl border flex flex-col items-center justify-center hover-lift hover-glow transition-smooth cursor-pointer">
                   <div className="text-3xl mb-2 group-hover:scale-110 transition-transform">
                     {tech.logo}
                   </div>
@@ -111,8 +140,8 @@ const TechStackSection = () => {
           </div>
 
           {/* Gradient Overlays */}
-          <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-surface to-transparent pointer-events-none"></div>
-          <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-surface to-transparent pointer-events-none"></div>
+          <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-surface to-transparent pointer-events-none z-10"></div>
+          <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-surface to-transparent pointer-events-none z-10"></div>
         </div>
 
         {/* Categories */}

@@ -204,6 +204,63 @@
   .hover-glow:hover {
     box-shadow: var(--shadow-glow);
   }
+
+  /* Tech stack horizontal scroll helpers */
+  .tech-stack-scroll-container {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tech-stack-animate {
+    animation: scroll 30s linear infinite;
+  }
+
+  .tech-stack-animate:hover {
+    animation-play-state: paused;
+  }
+
+  /* Custom scrollbar styles for demo dialog */
+  .demo-dialog-scroll::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .demo-dialog-scroll::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .demo-dialog-scroll::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+  }
+
+  .demo-dialog-scroll::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-slide-in {
+    animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .animate-fade-in-delayed {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.2s forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-delayed-2 {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+    opacity: 0;
+  }
+
+  .animate-fade-in-delayed-3 {
+    animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.6s forwards;
+    opacity: 0;
+  }
 }
 
 @keyframes float {
@@ -212,6 +269,28 @@
   }
   50% {
     transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
