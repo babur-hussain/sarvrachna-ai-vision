@@ -136,8 +136,8 @@ const FloatingReviews: React.FC = () => {
       {currentReviews.includes(0) && (
         <div className="absolute top-1/4 -left-1 animate-float">
           <div className="relative">
-            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
-              <div className="flex items-start justify-between mb-1.5">
+            <div className="w-64 h-32 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[0].rating)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
@@ -146,13 +146,13 @@ const FloatingReviews: React.FC = () => {
                 <Quote className="w-3 h-3 text-blue-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight line-clamp-2 overflow-hidden">
+              <p className="text-xs text-gray-800 mb-2 font-medium leading-tight line-clamp-2 overflow-hidden">
                 "{reviews[0].review}"
               </p>
               
               <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 rounded-full bg-blue-400/50 flex items-center justify-center">
-                  <User className="w-2 h-2 text-white" />
+                <div className="w-5 h-5 rounded-full bg-blue-400/50 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-semibold text-gray-800 truncate">{reviews[0].name}</div>
@@ -160,8 +160,8 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
@@ -171,8 +171,8 @@ const FloatingReviews: React.FC = () => {
       {currentReviews.includes(1) && (
         <div className="absolute top-1/4 -right-1 animate-float" style={{ animationDelay: '1s' }}>
           <div className="relative">
-            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
-              <div className="flex items-start justify-between mb-1.5">
+            <div className="w-64 h-32 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[1].rating)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
@@ -181,13 +181,13 @@ const FloatingReviews: React.FC = () => {
                 <Quote className="w-3 h-3 text-purple-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight line-clamp-2 overflow-hidden">
+              <p className="text-xs text-gray-800 mb-2 font-medium leading-tight line-clamp-2 overflow-hidden">
                 "{reviews[1].review}"
               </p>
               
               <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 rounded-full bg-purple-400/50 flex items-center justify-center">
-                  <User className="w-2 h-2 text-white" />
+                <div className="w-5 h-5 rounded-full bg-purple-400/50 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-semibold text-gray-800 truncate">{reviews[1].name}</div>
@@ -195,8 +195,8 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
@@ -206,8 +206,8 @@ const FloatingReviews: React.FC = () => {
       {currentReviews.includes(2) && (
         <div className="absolute bottom-1/4 -left-1 animate-float" style={{ animationDelay: '2s' }}>
           <div className="relative">
-            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
-              <div className="flex items-start justify-between mb-1.5">
+            <div className="w-64 h-32 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[2].rating)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
@@ -216,13 +216,13 @@ const FloatingReviews: React.FC = () => {
                 <Quote className="w-3 h-3 text-green-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight line-clamp-2 overflow-hidden">
+              <p className="text-xs text-gray-800 mb-2 font-medium leading-tight line-clamp-2 overflow-hidden">
                 "{reviews[2].review}"
               </p>
               
               <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 rounded-full bg-green-400/50 flex items-center justify-center">
-                  <User className="w-2 h-2 text-white" />
+                <div className="w-5 h-5 rounded-full bg-green-400/50 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-semibold text-gray-800 truncate">{reviews[2].name}</div>
@@ -230,8 +230,8 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
@@ -241,8 +241,8 @@ const FloatingReviews: React.FC = () => {
       {currentReviews.includes(3) && (
         <div className="absolute bottom-1/4 -right-1 animate-float" style={{ animationDelay: '0.5s' }}>
           <div className="relative">
-            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
-              <div className="flex items-start justify-between mb-1.5">
+            <div className="w-64 h-32 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[3].rating)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
@@ -251,13 +251,13 @@ const FloatingReviews: React.FC = () => {
                 <Quote className="w-3 h-3 text-orange-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight line-clamp-2 overflow-hidden">
+              <p className="text-xs text-gray-800 mb-2 font-medium leading-tight line-clamp-2 overflow-hidden">
                 "{reviews[3].review}"
               </p>
               
               <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 rounded-full bg-orange-400/50 flex items-center justify-center">
-                  <User className="w-2 h-2 text-white" />
+                <div className="w-5 h-5 rounded-full bg-orange-400/50 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-semibold text-gray-800 truncate">{reviews[3].name}</div>
@@ -265,8 +265,8 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
@@ -276,8 +276,8 @@ const FloatingReviews: React.FC = () => {
       {currentReviews.includes(4) && (
         <div className="absolute top-1/2 -left-1 transform -translate-y-1/2 animate-float" style={{ animationDelay: '1.5s' }}>
           <div className="relative">
-            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
-              <div className="flex items-start justify-between mb-1.5">
+            <div className="w-64 h-32 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[4].rating)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
@@ -286,13 +286,13 @@ const FloatingReviews: React.FC = () => {
                 <Quote className="w-3 h-3 text-pink-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight line-clamp-2 overflow-hidden">
+              <p className="text-xs text-gray-800 mb-2 font-medium leading-tight line-clamp-2 overflow-hidden">
                 "{reviews[4].review}"
               </p>
               
               <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 rounded-full bg-pink-400/50 flex items-center justify-center">
-                  <User className="w-2 h-2 text-white" />
+                <div className="w-5 h-5 rounded-full bg-pink-400/50 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-semibold text-gray-800 truncate">{reviews[4].name}</div>
@@ -300,8 +300,8 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
@@ -311,8 +311,8 @@ const FloatingReviews: React.FC = () => {
       {currentReviews.includes(5) && (
         <div className="absolute top-1/2 -right-1 transform -translate-y-1/2 animate-float" style={{ animationDelay: '2.5s' }}>
           <div className="relative">
-            <div className="w-56 h-24 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
-              <div className="flex items-start justify-between mb-1.5">
+            <div className="w-64 h-32 bg-gradient-to-br from-white/25 via-white/20 to-white/15 backdrop-blur-sm rounded-xl shadow-lg border border-white/15 p-3">
+              <div className="flex items-start justify-between mb-2">
                 <div className="flex items-center space-x-1">
                   {[...Array(reviews[5].rating)].map((_, i) => (
                     <Star key={i} className="w-2.5 h-2.5 fill-yellow-400 text-yellow-400" />
@@ -321,13 +321,13 @@ const FloatingReviews: React.FC = () => {
                 <Quote className="w-3 h-3 text-indigo-400/60" />
               </div>
               
-              <p className="text-xs text-gray-800 mb-1.5 font-medium leading-tight line-clamp-2 overflow-hidden">
+              <p className="text-xs text-gray-800 mb-2 font-medium leading-tight line-clamp-2 overflow-hidden">
                 "{reviews[5].review}"
               </p>
               
               <div className="flex items-center space-x-2">
-                <div className="w-4 h-4 rounded-full bg-indigo-400/50 flex items-center justify-center">
-                  <User className="w-2 h-2 text-white" />
+                <div className="w-5 h-5 rounded-full bg-indigo-400/50 flex items-center justify-center">
+                  <User className="w-2.5 h-2.5 text-white" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="text-xs font-semibold text-gray-800 truncate">{reviews[5].name}</div>
@@ -335,8 +335,8 @@ const FloatingReviews: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2">
-              <div className="w-0 h-0 border-l-[3px] border-r-[3px] border-t-[4px] border-l-transparent border-r-transparent border-t-white/25"></div>
+            <div className="absolute -bottom-1.5 left-1/2 transform -translate-x-1/2">
+              <div className="w-0 h-0 border-l-[4px] border-r-[4px] border-t-[6px] border-l-transparent border-r-transparent border-t-white/25"></div>
             </div>
           </div>
         </div>
