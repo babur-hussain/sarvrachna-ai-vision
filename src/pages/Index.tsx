@@ -11,6 +11,7 @@ import PricingSection from "@/components/sections/PricingSection";
 import ContactSection from "@/components/sections/ContactSection";
 import Footer from "@/components/sections/Footer";
 import FloatingChatbot from "@/components/sections/FloatingChatbot";
+import FloatingReviews from "@/components/ui/floating-reviews";
 
 const Index = () => {
   return (
@@ -28,6 +29,7 @@ const Index = () => {
       <ContactSection />
       <Footer />
       <FloatingChatbot />
+      <FloatingReviews />
     </div>
   );
 };
