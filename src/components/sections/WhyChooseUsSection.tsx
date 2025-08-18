@@ -11,7 +11,9 @@ const WhyChooseUsSection = () => {
       subtitle: "Rapid Development",
       frontContent: "We deliver projects 3x faster than industry average with our streamlined processes.",
       backContent: "Our agile methodology and pre-built components allow us to reduce development time by 60-70% while maintaining quality.",
-      color: "brand-sky",
+      color: "blue",
+      bgColor: "bg-blue-500",
+      textColor: "text-blue-500",
     },
     {
       icon: Lightbulb,
@@ -19,7 +21,9 @@ const WhyChooseUsSection = () => {
       subtitle: "Cutting-Edge Tech",
       frontContent: "Always using the latest technologies and AI advancements for your competitive edge.",
       backContent: "We invest 20% of our time in R&D, ensuring our clients get access to emerging technologies before their competitors.",
-      color: "brand-cyan",
+      color: "cyan",
+      bgColor: "bg-cyan-500",
+      textColor: "text-cyan-500",
     },
     {
       icon: Shield,
@@ -27,7 +31,9 @@ const WhyChooseUsSection = () => {
       subtitle: "Bank-Level Protection",
       frontContent: "Military-grade security protocols protecting your data and customer information.",
       backContent: "ISO 27001 certified processes, end-to-end encryption, and compliance with GDPR, HIPAA, and other regulations.",
-      color: "brand-violet",
+      color: "violet",
+      bgColor: "bg-violet-500",
+      textColor: "text-violet-500",
     },
     {
       icon: Clock,
@@ -35,7 +41,9 @@ const WhyChooseUsSection = () => {
       subtitle: "Always Available",
       frontContent: "Round-the-clock technical support and maintenance for uninterrupted operations.",
       backContent: "Dedicated support team with 15-minute response time and 99.9% uptime guarantee for all our solutions.",
-      color: "brand-pink",
+      color: "pink",
+      bgColor: "bg-pink-500",
+      textColor: "text-pink-500",
     },
     {
       icon: Trophy,
@@ -43,7 +51,9 @@ const WhyChooseUsSection = () => {
       subtitle: "Success Stories",
       frontContent: "Over 500 successful projects with measurable ROI improvements for our clients.",
       backContent: "Average 40% increase in efficiency, 60% cost reduction, and 300% ROI within the first year of implementation.",
-      color: "brand-sky",
+      color: "sky",
+      bgColor: "bg-sky-500",
+      textColor: "text-sky-500",
     },
     {
       icon: Users,
@@ -51,7 +61,9 @@ const WhyChooseUsSection = () => {
       subtitle: "Industry Leaders",
       frontContent: "World-class developers, AI specialists, and digital strategists at your service.",
       backContent: "Team of 50+ certified professionals with expertise in 20+ technologies and 10+ industries.",
-      color: "brand-cyan",
+      color: "cyan",
+      bgColor: "bg-cyan-500",
+      textColor: "text-cyan-500",
     },
   ];
 
@@ -63,15 +75,15 @@ const WhyChooseUsSection = () => {
     <section className="py-24 bg-background relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-32 left-20 w-40 h-40 bg-brand-violet rounded-full blur-3xl animate-float"></div>
-        <div className="absolute bottom-32 right-20 w-32 h-32 bg-brand-cyan rounded-full blur-3xl animate-float-delayed"></div>
+        <div className="absolute top-32 left-20 w-40 h-40 bg-violet-500 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-32 right-20 w-32 h-32 bg-cyan-500 rounded-full blur-3xl animate-float-delayed"></div>
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
         {/* Section Header */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center px-4 py-2 rounded-full glass border mb-6">
-            <Trophy className="w-4 h-4 text-brand-sky mr-2" />
+            <Trophy className="w-4 h-4 text-sky-500 mr-2" />
             <span className="text-sm font-medium">Why Choose Us</span>
           </div>
 
@@ -99,15 +111,15 @@ const WhyChooseUsSection = () => {
                 <div className={`relative w-full h-full transition-transform duration-700 preserve-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
                   {/* Front Side */}
                   <div className="absolute inset-0 w-full h-full backface-hidden rounded-2xl glass border p-6 hover-lift transition-smooth">
-                    <div className={`w-12 h-12 rounded-xl bg-${reason.color}/10 flex items-center justify-center mb-4`}>
-                      <Icon className={`h-6 w-6 text-${reason.color}`} />
+                    <div className={`w-12 h-12 rounded-xl ${reason.bgColor}/10 flex items-center justify-center mb-4`}>
+                      <Icon className={`h-6 w-6 ${reason.textColor}`} />
                     </div>
                     
                     <h3 className="text-xl font-bold mb-2 text-foreground">
                       {reason.title}
                     </h3>
                     
-                    <p className="text-sm text-brand-sky font-medium mb-4">
+                    <p className="text-sm text-sky-500 font-medium mb-4">
                       {reason.subtitle}
                     </p>
                     
@@ -122,8 +134,8 @@ const WhyChooseUsSection = () => {
 
                   {/* Back Side */}
                   <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180 rounded-2xl glass border p-6 hover-lift transition-smooth gradient-card">
-                    <div className={`w-12 h-12 rounded-xl bg-${reason.color}/20 flex items-center justify-center mb-4`}>
-                      <Icon className={`h-6 w-6 text-${reason.color}`} />
+                    <div className={`w-12 h-12 rounded-xl ${reason.bgColor}/20 flex items-center justify-center mb-4`}>
+                      <Icon className={`h-6 w-6 ${reason.textColor}`} />
                     </div>
                     
                     <h3 className="text-xl font-bold mb-4 text-foreground">
