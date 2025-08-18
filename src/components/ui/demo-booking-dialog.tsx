@@ -82,21 +82,17 @@ const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }
       if (response.success) {
         setIsSubmitted(true);
         
-        // Reset form after 3 seconds
-        setTimeout(() => {
-          setIsSubmitted(false);
-          setFormData({
-            name: "",
-            email: "",
-            phone: "",
-            company: "",
-            message: "",
-            preferredDate: "",
-            preferredTime: "",
-            service: "ai-solutions"
-          });
-          onClose();
-        }, 3000);
+        // Reset form but don't auto-close
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          message: "",
+          preferredDate: "",
+          preferredTime: "",
+          service: "ai-solutions"
+        });
       } else {
         setError(response.error || 'Failed to submit booking');
       }
@@ -429,10 +425,29 @@ const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }
                 <p className="text-muted-foreground text-lg mb-6">
                   We've sent you a confirmation email with all the details. Our team will contact you shortly to confirm the demo.
                 </p>
-                <div className="inline-flex items-center px-4 py-2 rounded-full bg-brand-sky/10 border border-brand-sky/30">
-                  <span className="text-brand-sky text-sm font-medium">
-                    Check your email for confirmation
-                  </span>
+                <div className="space-y-4">
+                  <div className="inline-flex items-center px-4 py-2 rounded-full bg-brand-sky/10 border border-brand-sky/30">
+                    <span className="text-brand-sky text-sm font-medium">
+                      Check your email for confirmation
+                    </span>
+                  </div>
+                  
+                  <div className="flex gap-3 justify-center">
+                    <Button
+                      onClick={() => setIsSubmitted(false)}
+                      variant="outline"
+                      className="px-6 py-2"
+                    >
+                      Book Another Demo
+                    </Button>
+                    
+                    <Button
+                      onClick={onClose}
+                      className="px-6 py-2 gradient-primary text-white"
+                    >
+                      Close
+                    </Button>
+                  </div>
                 </div>
               </div>
             )}
