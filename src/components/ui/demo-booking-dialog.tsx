@@ -40,6 +40,18 @@ const DemoBookingDialog: React.FC<DemoBookingDialogProps> = ({ isOpen, onClose }
       });
       setError(null);
       setAvailableSlots([]);
+      
+      // Test Supabase connection
+      DemoBookingService.testConnection()
+        .then(isConnected => {
+          if (!isConnected) {
+            setError('Database connection failed. Please check your setup.');
+          }
+        })
+        .catch(err => {
+          console.error('Connection test failed:', err);
+          setError('Unable to connect to database. Please try again later.');
+        });
     }
   }, [isOpen]);
 

@@ -22,6 +22,28 @@ export interface DemoBookingResponse {
 
 export class DemoBookingService {
   /**
+   * Test Supabase connection
+   */
+  static async testConnection(): Promise<boolean> {
+    try {
+      const { data, error } = await supabase
+        .from('demo_bookings')
+        .select('count', { count: 'exact', head: true });
+      
+      if (error) {
+        console.error('Connection test error:', error);
+        return false;
+      }
+      
+      console.log('Supabase connection successful');
+      return true;
+    } catch (error) {
+      console.error('Connection test failed:', error);
+      return false;
+    }
+  }
+
+  /**
    * Submit a demo booking request
    */
   static async submitBooking(formData: DemoBookingFormData): Promise<DemoBookingResponse> {
@@ -62,6 +84,8 @@ export class DemoBookingService {
       };
 
       // Insert into Supabase
+      console.log('Submitting booking data:', bookingData);
+      
       const { data, error } = await supabase
         .from('demo_bookings')
         .insert(bookingData)
@@ -69,7 +93,12 @@ export class DemoBookingService {
         .single();
 
       if (error) {
-        console.error('Supabase error:', error);
+        console.error('Supabase error details:', {
+          message: error.message,
+          code: error.code,
+          details: error.details,
+          hint: error.hint
+        });
         
         // Handle specific error cases
         if (error.code === '23505') {
@@ -86,9 +115,16 @@ export class DemoBookingService {
           };
         }
 
+        if (error.code === '42P01') {
+          return {
+            success: false,
+            error: 'Database table not found. Please contact support.'
+          };
+        }
+
         return {
           success: false,
-          error: 'Failed to submit booking. Please try again later.'
+          error: `Failed to submit booking: ${error.message}`
         };
       }
 
